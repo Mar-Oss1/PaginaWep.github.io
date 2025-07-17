@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eres lo mas bello del mundo</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <main>
+        <div class="titulo-container">
+            <h1>Gracias por estos 8 meses juntos, te amo</h1>
+            <div id="contadorDias" class="contador-dias"></div>
+        </div>
+
+        <section id="corazones" class="corazones-container"></section>
+    </main>
+    <div id="modal" class="modal">
+        <div class="modal-content alas-modal">
+            <span class="close" id="closeModal">X</span>
+            <div id="poemaText" class="poema-text"></div>
+        </div>
+    </div>
+    <div id="petalos" class="petalos-container"></div>
+    <div id="mensajeFinal" class="mensaje-final" style="display:none;">
+        <div>¡Has tocado todos los corazones!<br />Te amo con todo mi corazón 💖</div>
+        <audio id="audioFinal" src="duki.mp3" loop></audio>
+    </div>
+    <script>
+        // --- Lógica principal ---
+        const FECHA_INICIO = new Date('2024-11-18');
+        function getDiasJuntos() {
+            const hoy = new Date();
+            const diff = hoy - FECHA_INICIO;
+            return Math.floor(diff / (1000 * 60 * 60 * 24));
+        }
+        document.getElementById('contadorDias').innerHTML =
+            `Llevamos <b>${getDiasJuntos()}</b> días juntos desde el 18 de noviembre de 2024.`;
+
+        const poemas = [
+            "Y si te digo que esta pena que siento, sólo me la pueden sacar tus besos.",
+            "Estamos conectados por la ley de atracción. Me llamás y yo te caigo, tu sabés cómo soy.",
+            "Con sus besos cura to’ mis males, en tu cuello marqué mis iniciales.",
+            "Donde sea que voy, ella está. Dudo que nos puedan separar. Nos atraemos como un imán.Le di la luz y me juró lealtad.",
+            "Lo nuestro no se acaba ni después de la muerte.",
+            "Yo la toco y ella me toca. No quiere a otro y no quiero a otra.",
+            "Tú estás del uno al cinco en mi top five.",
+            "Si alguien te lastima, llámame que yo voy.Que te llego en diez minuto, no importa dónde estoy.",
+            "Dice que no es celosa, pero bueno… cuando se enoja me hace la ley del hielo.",
+            "Estoy bajo de su poder. Ni yo sé qué tomé. No lo para de mover. Creo que me enamoré.",
+            "Ella conmigo, caliente como el infierno, pero si quiere, mami, es fría como invierno.",
+            "Sé que te gustan las flores, tengo un par de rosas rojas. Y te las voy a dar el día que dejes que te—",
+            "Si me sobrara el tiempo, tú sabe', yo sé que te robo mañana.",
+            "Con esta cara de diablo, me gané un ángel.",
+            "Tu te vas a casar conmigo, mami, entérate."
+        ];
+
+        const corazonesContainer = document.getElementById('corazones');
+        let tocados = [];
+
+        poemas.forEach((poema, idx) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'corazon-wrapper';
+            const corazon = document.createElement('div');
+            corazon.className = 'corazon';
+            corazon.innerText = '❤️';
+            corazon.style.cursor = 'pointer';
+            corazon.onclick = () => mostrarPoema(poema, idx);
+            const tocame = document.createElement('div');
+            tocame.className = 'tocame-text';
+            tocame.innerText = 'Tócame';
+            wrapper.appendChild(corazon);
+            wrapper.appendChild(tocame);
+            corazonesContainer.appendChild(wrapper);
+        });
+
+        let audioActual = null;
+
+        function mostrarPoema(poema, idx) {
+            document.getElementById('poemaText').innerText = poema;
+            document.getElementById('modal').classList.add('active');
+
+            if (!tocados.includes(idx)) {
+                tocados.push(idx);
+                corazonesContainer.children[idx].querySelector('.corazon').style.opacity = '0.4';
+            }
+
+            // Reproducir audio correspondiente
+            if (audioActual) {
+                audioActual.pause();
+                audioActual.currentTime = 0;
+            }
+            audioActual = document.getElementById(`audioPoema${idx}`);
+            if (audioActual) {
+                audioActual.play();
+            }
+
+            lanzarPetalos();
+
+            if (tocados.length === poemas.length) {
+                setTimeout(() => mostrarFinal(), 600);
+            }
+        }
+
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('poemaText').innerText = '';
+
+            // Detener audio actual
+            if (audioActual) {
+                audioActual.pause();
+                audioActual.currentTime = 0;
+            }
+        };
+
+        function mostrarFinal() {
+            document.getElementById('mensajeFinal').style.display = 'flex';
+            // Ya no se reproduce audioFinal
+        }
+
+
+
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('modal').classList.remove('active');
+            document.getElementById('poemaText').innerText = '';
+        };
+
+        // Animación de pétalos
+        function lanzarPetalos() {
+            const petalosRef = document.getElementById('petalos');
+            for (let i = 0; i < 15; i++) {
+                const petalo = document.createElement('div');
+                petalo.className = 'petalo';
+                petalo.style.left = Math.random() * 100 + 'vw';
+                petalo.style.animationDuration = (2 + Math.random() * 2) + 's';
+                petalo.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
+                petalo.innerText = '🌸';
+                petalosRef.appendChild(petalo);
+                setTimeout(() => {
+                    petalo.remove();
+                }, 4000);
+            }
+        }
+
+        function mostrarFinal() {
+            document.getElementById('mensajeFinal').style.display = 'flex';
+            document.getElementById('audioFinal').play();
+        }
+
+
+    </script>
+    <!-- Audios individuales para cada poema -->
+    <audio id="audioPoema0" src="poema1.mp3"></audio>
+    <audio id="audioPoema1" src="poema2.mp3"></audio>
+    <audio id="audioPoema2" src="poema3.mp3"></audio>
+    <audio id="audioPoema3" src="poema4.mp3"></audio>
+    <audio id="audioPoema4" src="poema5.mp3"></audio>
+    <audio id="audioPoema5" src="poema6.mp3"></audio>
+    <audio id="audioPoema6" src="poema7.mp3"></audio>
+    <audio id="audioPoema7" src="poema8.mp3"></audio>
+    <audio id="audioPoema8" src="poema9.mp3"></audio>
+    <audio id="audioPoema9" src="poema10.mp3"></audio>
+    <audio id="audioPoema10" src="poema11.mp3"></audio>
+    <audio id="audioPoema11" src="poema12.mp3"></audio>
+    <audio id="audioPoema12" src="poema13.mp3"></audio>
+    <audio id="audioPoema13" src="poema14.mp3"></audio>
+    <audio id="audioPoema14" src="poema15.mp3"></audio>
+
+</body>
+
+</html>
+
+</html>

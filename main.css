@@ -1,0 +1,256 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fondo rosa pastel y fuente general */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #ffe4ec;
+  /* rosa pastel */
+  color: #222;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Encabezados */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #d72660;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+  text-shadow: 0 2px 8px #fff3f8;
+}
+
+/* Enlaces */
+a {
+  color: #d72660;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #a51c47;
+  text-decoration: underline;
+}
+
+/* Botones */
+button,
+.btn {
+  background: #d72660;
+  color: #fff;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+
+button:hover,
+.btn:hover {
+  background: #a51c47;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1100px;
+  margin: 2em auto;
+  padding: 2em;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(215, 38, 96, 0.08);
+}
+
+/* Corazones en filas y centrados */
+.corazones-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.corazon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.corazon {
+  font-size: 2.5rem;
+  transition: transform 0.2s;
+  filter: drop-shadow(0 2px 8px #fff3f8);
+}
+
+.corazon:hover {
+  transform: scale(1.2);
+}
+
+.tocame-text {
+  margin-top: 0.5em;
+  font-size: 1.1rem;
+  color: #d72660;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 228, 236, 0.85);
+  /* fondo rosa pastel translúcido */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: #fff0f6;
+  padding: 2em;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(215, 38, 96, 0.15);
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+  z-index: 20;
+}
+
+.close {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #d72660;
+  font-weight: bold;
+}
+
+.poema-text {
+  margin-top: 1.5em;
+  font-size: 1.2rem;
+  color: #d72660;
+}
+
+/* Pétalos animados */
+.petalos-container {
+  position: fixed;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15;
+}
+
+.petalo {
+  position: absolute;
+  top: 0;
+  animation: caerPetalo linear forwards;
+  opacity: 1;
+  filter: drop-shadow(0 2px 8px #fff3f8);
+}
+
+@keyframes caerPetalo {
+  to {
+    top: 100vh;
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}
+
+/* Mensaje final */
+.mensaje-final {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 228, 236, 0.98);
+  z-index: 20;
+  font-size: 2rem;
+  color: #d72660;
+  text-align: center;
+  flex-direction: column;
+}
+
+/* Responsive mejorado */
+@media (max-width: 700px) {
+  .container {
+    padding: 1em;
+  }
+
+  body {
+    font-size: 1em;
+  }
+
+  .corazon-wrapper {
+    width: 80px;
+  }
+
+  .modal-content {
+    max-width: 90vw;
+    padding: 1em;
+  }
+
+  .mensaje-final {
+    font-size: 1.2rem;
+    padding: 1em;
+  }
+}
+
+/* Espaciado general */
+p,
+ul,
+ol {
+  margin-bottom: 1em;
+}
+
+/* Imágenes responsivas */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.titulo-container {
+  text-align: center;
+  margin-top: 2em;
+}
+
+.contador-dias {
+  font-size: 1.2rem;
+  color: #a51c47;
+  margin-top: 0.5em;
+}
+
+body {
+  background-image: url('alas-patron.png');
+  background-repeat: repeat;
+  background-size: 120px;
+  /* Ajusta el tamaño según lo que se vea mejor */
+}
